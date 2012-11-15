@@ -12,7 +12,7 @@ def get_long_description():
 
 setup(
     name='django-iban',
-    version='0.1',
+    version='0.1.1',
     license='BSD',
     description='A validated IBAN field for Django models',
     long_description=get_long_description(),
