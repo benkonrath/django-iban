@@ -10,3 +10,12 @@ class IbanAccountField(models.CharField):
         kwargs.setdefault('max_length', 34)
         super(IbanAccountField, self).__init__(*args, **kwargs)
         self.validators.append(iban_validator)
+
+
+# If south is installed, ensure that IbanAccountField will be introspected just
+# like a normal CharField
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^django_iban\.fields\.IbanAccountField"])
+except ImportError:
+    pass
