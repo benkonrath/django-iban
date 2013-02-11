@@ -52,6 +52,7 @@ iban_length = { 'AL': 28,
                 'NO': 15,
                 'PS': 29,
                 'PL': 28,
+                'PK': 24,
                 'PT': 25,
                 'RO': 24,
                 'SM': 27,
@@ -82,9 +83,6 @@ iban_length = { 'AL': 28,
 def iban_validator(value):
     # TODO: Remove and add countries to main iban_length after activation date.
     current_date = timezone.now().date()
-    # Pakistan becomes part of the IBAN system on 31 December 2012.
-    if current_date >= datetime.date(2012, 12, 31):
-        iban_length['PK'] = 24
     # Guatemala becomes part of the IBAN system on 1 July 2014.
     if current_date >= datetime.date(2014, 07, 01):
         iban_length['GT'] = 28
