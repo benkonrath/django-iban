@@ -6,10 +6,10 @@ python:
 
 env:
   - DJANGO=https://github.com/django/django/archive/1.5c1.zip
-  - DJANGO=1.4.2
+  - DJANGO=django==1.4.3
 
 install:
-  - pip install -q Django==$DJANGO --use-mirrors
+  - pip install -q $DJANGO --use-mirrors
   - pip install -q -e . --use-mirrors
 
 script:
