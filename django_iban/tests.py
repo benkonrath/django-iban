@@ -1,4 +1,5 @@
 # coding=utf-8
+import datetime
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from .fields import iban_validator
@@ -35,3 +36,8 @@ class IbanTests(TestCase):
         iban_invalid_check = 'SA0380000000608019167519'
         self.assertRaisesMessage(ValidationError, u'Not a valid IBAN.',
                                  iban_validator, iban_invalid_check)
+
+    def test_date_conditional_iban(self):
+        # Test validation for Guatemala after activation date.
+        future_date = datetime.date(2020, 01, 01)
+        iban_validator('GT82TRAJ01020000001210029690', future_date)

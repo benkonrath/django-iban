@@ -80,9 +80,12 @@ iban_length = { 'AL': 28,
                 'PM': 27,
                 'WF': 27 }
 
-def iban_validator(value):
+def iban_validator(value, future_date=None):
     # TODO: Remove and add countries to main iban_length after activation date.
-    current_date = timezone.now().date()
+    if future_date:
+        current_date = future_date
+    else:
+        current_date = timezone.now().date()
     # Brazil becomes part of the IBAN system on 1 July 2013.
     if current_date >= datetime.date(2013, 07, 01):
         iban_length['BR'] = 29
@@ -108,7 +111,7 @@ def iban_validator(value):
     #    the string, where A = 10, B = 11, ..., Z = 35.
     value_digits = ""
     for x in value:
-        # Check if we can use ord() before doing the offical check. This
+        # Check if we can use ord() before doing the official check. This
         # protects against bad character encoding.
         if len(x) > 1:
             raise ValidationError(u"%s is not a valid character for IBAN." % x)
