@@ -6,7 +6,7 @@ python:
 
 env:
   - DJANGO=django==1.5
-  - DJANGO=django==1.4.3
+  - DJANGO=django==1.4.5
 
 install:
   - pip install -q $DJANGO --use-mirrors
