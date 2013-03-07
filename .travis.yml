@@ -5,7 +5,7 @@ python:
   - "2.7"
 
 env:
-  - DJANGO=https://github.com/django/django/archive/1.5c1.zip
+  - DJANGO=django==1.5
   - DJANGO=django==1.4.3
 
 install:
