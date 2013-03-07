@@ -118,9 +118,9 @@ def iban_validator(value, future_date=None):
 
         # The official check.
         ord_value = ord(x)
-        if 48 <= ord_value <= 57: # 0 - 9
+        if 48 <= ord_value <= 57:  # 0 - 9
             value_digits += x
-        elif 65 <= ord_value <= 90: # A - Z
+        elif 65 <= ord_value <= 90:  # A - Z
             value_digits += str(ord_value - 55)
         else:
             raise ValidationError(u"%s is not a valid character for IBAN." % x)
