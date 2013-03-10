@@ -16,6 +16,15 @@ Django IBAN
 * Validates IBAN using the official validation algorithm.
 * Date conditional support for Brazil (active 1 July, 2013) and Guatemala (active 1 July, 2014)
 
+**Usage:**
+
+Define a field as ``IbanAccountField`` in your ``models.py``::
+
+    from django_iban.fields import IbanAccountField
+    
+    class Customer(Model):
+        iban = IbanAccountField()
+
 **Development:**
 
 Pull requests happily accepted.
