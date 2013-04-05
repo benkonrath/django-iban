@@ -7,12 +7,12 @@ from .fields import iban_validator
 
 class IbanTests(TestCase):
     def test_valid_iban(self):
-        wikipedia_examples = [ 'GB82WEST12345698765432',
-                               'GR1601101250000000012300695',
-                               'GB29NWBK60161331926819',
-                               'SA0380000000608010167519',
-                               'CH9300762011623852957',
-                               'IL620108000000099999999' ]
+        wikipedia_examples = ['GB82WEST12345698765432',
+                              'GR1601101250000000012300695',
+                              'GB29NWBK60161331926819',
+                              'SA0380000000608010167519',
+                              'CH9300762011623852957',
+                              'IL620108000000099999999']
 
         for iban in wikipedia_examples:
             iban_validator(iban)
