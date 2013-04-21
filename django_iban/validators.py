@@ -128,5 +128,14 @@ def iban_validator(value, future_date=None):
 
     # 4. Interpret the string as a decimal integer and compute the remainder of
     # that number on division by 97.
-    if int(value_digits) % 97 != 1:
-        raise ValidationError(u"Not a valid IBAN.")
+    # If the country code is BG we replace the control number with 00
+    # and from 98 subtract the remainder from division by 97 and expect the
+    # result to be equal with the original control number
+    if country_code == 'BG':
+        control_number = int(value_digits[-2:])
+        value_digits = value_digits[:-2] + '00'
+        if control_number != (98 - int(value_digits) % 97):
+            raise ValidationError(u"Not a valid IBAN.")
+    else:
+        if int(value_digits) % 97 != 1:
+            raise ValidationError(u"Not a valid IBAN.")
