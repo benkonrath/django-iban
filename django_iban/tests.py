@@ -37,6 +37,23 @@ class IbanTests(TestCase):
         self.assertRaisesMessage(ValidationError, u'Not a valid IBAN.',
                                  iban_validator, iban_invalid_check)
 
+    def test_bulgarian_algorithm(self):
+        valid_examples = [
+            'BG81CECB97902406715001',
+            'BG33AAAA12311012345678',
+        ]
+        invalid_examples = [
+            'BG36CECB97904006715001',
+            'BG36CECB97904006715301',
+            'BG81CECB97902406715011',
+            'BG81CECB97902412345678',
+        ]
+        for iban in valid_examples:
+            iban_validator(iban)
+        for iban in invalid_examples:
+            self.assertRaisesMessage(ValidationError, u'Not a valid IBAN.',
+                                     iban_validator, iban)
+
     def test_date_conditional_iban(self):
         # Test validation for Guatemala after activation date.
         future_date = datetime.date(2020, 01, 01)
