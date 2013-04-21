@@ -1,14 +1,14 @@
 Django IBAN
 ===========
 
+.. image:: https://secure.travis-ci.org/benkonrath/django-iban.png?branch=master
+   :target: http://travis-ci.org/benkonrath/django-iban?branch=master
+
 **A validated Django model field for** `International Bank Account Numbers`_ **(IBAN).**
 
 **Author:** Ben Konrath
 
 **License:** 3-clause BSD
-
-.. image:: https://secure.travis-ci.org/benkonrath/django-iban.png?branch=master
-   :target: http://travis-ci.org/benkonrath/django-iban?branch=master
 
 **Features:**
 
