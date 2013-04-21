@@ -4,11 +4,11 @@ from .validators import iban_validator, swift_bic_validator
 
 # From: https://en.wikipedia.org/wiki/International_Bank_Account_Number
 # An IBAN consists of up to 34 alphanumeric characters.
-class IbanAccountField(models.CharField):
+class IBANField(models.CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('max_length', 34)
-        super(IbanAccountField, self).__init__(*args, **kwargs)
+        super(IBANField, self).__init__(*args, **kwargs)
         self.validators.append(iban_validator)
 
 
@@ -26,7 +26,7 @@ class SWIFTBICField(models.CharField):
 # like a normal CharField
 try:
     from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], ["^django_iban\.fields\.IbanAccountField"])
+    add_introspection_rules([], ["^django_iban\.fields\.IBANField"])
     add_introspection_rules([], ["^django_iban\.fields\.SWIFTBICField"])
 except ImportError:
     pass

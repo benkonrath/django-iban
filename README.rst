@@ -18,12 +18,12 @@ Django IBAN
 
 **Usage:**
 
-Define a field as ``IbanAccountField`` in your ``models.py``::
+Define a field as ``IBANField`` in your ``models.py``::
 
-    from django_iban.fields import IbanAccountField
+    from django_iban.fields import IBANField
     
     class Customer(Model):
-        iban = IbanAccountField()
+        iban = IBANField()
 
 **Development:**
 
