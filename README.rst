@@ -30,6 +30,11 @@ Define a field as ``IBANField`` and/or ``SWIFTBICField`` in your ``models.py``::
 
 **Development:**
 
+Ideas for new features include:
+
+* SWIFT-BIC validation using referenced IBANField (SEPA requires both IBAN and SWIFT-BIC to be correct).
+* Translation of validation error messages using Transifex.
+
 Pull requests happily accepted.
 
 .. _International Bank Account Numbers: https://en.wikipedia.org/wiki/International_Bank_Account_Number
