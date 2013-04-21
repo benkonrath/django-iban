@@ -26,6 +26,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'django>=1.4',
+        'django-countries==1.5',
     ],
 
     classifiers=[

@@ -2,10 +2,12 @@
 import datetime
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from django_iban.validators import swift_bic_validator
 from .fields import iban_validator
 
 
 class IbanTests(TestCase):
+
     def test_valid_iban(self):
         wikipedia_examples = ['GB82WEST12345698765432',
                               'GR1601101250000000012300695',
@@ -58,3 +60,28 @@ class IbanTests(TestCase):
         # Test validation for Guatemala after activation date.
         future_date = datetime.date(2020, 01, 01)
         iban_validator('GT82TRAJ01020000001210029690', future_date)
+
+
+class SWIFTBICTests(TestCase):
+
+    def test_valid_swift_bic(self):
+        wikipedia_examples = [
+            'DEUTDEFF',
+            'NEDSZAJJXXX',
+            'DABADKKK',
+            'UNCRIT2B912',
+            'DSBACNBXSHA'
+        ]
+
+        for swift_bic in wikipedia_examples:
+            swift_bic_validator(swift_bic)
+
+    def test_invalid_swift_bic(self):
+        swift_bic_short = 'NEDSZAJJXX'
+        self.assertRaises(ValidationError, swift_bic_validator, swift_bic_short)
+
+        swift_bic_country = 'CIBCJJH2'
+        self.assertRaises(ValidationError, swift_bic_validator, swift_bic_country)
+
+        swift_bic_invalid_character = u'DÉUTDEFF'
+        self.assertRaises(ValidationError, swift_bic_validator, swift_bic_invalid_character)
