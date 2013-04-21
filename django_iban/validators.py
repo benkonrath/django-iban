@@ -69,11 +69,11 @@ iban_length = {'AL': 28,
                'AE': 23,
                'GB': 22,
                'VG': 24,
-        # https://en.wikipedia.org/wiki/International_Bank_Account_Number#cite_note-24
-        # French Polynesia (PF), French Southern Territories (TF), Mayotte (YT),
-        # New Caledonia (NC), Saint Pierre and Miquelon (PM), and
-        # Wallis and Futuna Islands (WF) have their own ISO country code but may be
-        # identified within the IBAN by either FR or their specific country code.
+               # https://en.wikipedia.org/wiki/International_Bank_Account_Number#cite_note-24
+               # French Polynesia (PF), French Southern Territories (TF), Mayotte (YT),
+               # New Caledonia (NC), Saint Pierre and Miquelon (PM), and
+               # Wallis and Futuna Islands (WF) have their own ISO country code but may be
+               # identified within the IBAN by either FR or their specific country code.
                'PF': 27,
                'TF': 27,
                'YT': 27,
@@ -99,8 +99,7 @@ def iban_validator(value, future_date=None):
 
     # Official validation algorithm:
     # https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN
-    # 1. Check that the total IBAN length is correct as per the country. If not,
-    #    the IBAN is invalid.
+    # 1. Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid.
     country_code = value[:2]
     if country_code in iban_length:
         if iban_length[country_code] != len(value):
@@ -111,12 +110,11 @@ def iban_validator(value, future_date=None):
     # 2. Move the four initial characters to the end of the string.
     value = value[4:] + value[:4]
 
-    # 3. Replace each letter in the string with two digits, thereby expanding
-    #    the string, where A = 10, B = 11, ..., Z = 35.
+    # 3. Replace each letter in the string with two digits, thereby expanding the string, where
+    #    A = 10, B = 11, ..., Z = 35.
     value_digits = ""
     for x in value:
-        # Check if we can use ord() before doing the official check. This
-        # protects against bad character encoding.
+        # Check if we can use ord() before doing the official check. This protects against bad character encoding.
         if len(x) > 1:
             raise ValidationError(u"%s is not a valid character for IBAN." % x)
 
@@ -129,8 +127,7 @@ def iban_validator(value, future_date=None):
         else:
             raise ValidationError(u"%s is not a valid character for IBAN." % x)
 
-    # 4. Interpret the string as a decimal integer and compute the remainder of
-    # that number on division by 97.
+    # 4. Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
     if int(value_digits) % 97 != 1:
         raise ValidationError(u"Not a valid IBAN.")
 
