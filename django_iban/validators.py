@@ -138,15 +138,15 @@ def swift_bic_validator(value):
     # Length is 8 or 11.
     swift_bic_length = len(value)
     if swift_bic_length != 8 and swift_bic_length != 11:
-        raise ValidationError(u"Wrong length for SWIFT-BIC. A SWIFT-BIC is either 8 or 11 characters long.")
+        raise ValidationError(u"A SWIFT-BIC is either 8 or 11 characters long.")
 
     # First 4 letters are A - Z.
     institution_code = value[:4]
     for x in institution_code:
         if x not in string.uppercase:
-            raise ValidationError(u"%s is not a valid Institution Code." % institution_code)
+            raise ValidationError(u"%s is not a valid SWIFT-BIC Institution Code." % institution_code)
 
     # Letters 5 and 6 consist of an ISO 3166-1 alpha-2 country code.
     country_code = value[4:6]
     if country_code not in OFFICIAL_COUNTRIES:
-        raise ValidationError(u"%s is not a valid Country Code." % country_code)
+        raise ValidationError(u"%s is not a valid SWIFT-BIC Country Code." % country_code)
