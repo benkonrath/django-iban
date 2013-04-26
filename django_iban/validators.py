@@ -1,7 +1,9 @@
 import datetime
 import string
+
 from django_countries.countries import COUNTRIES, OFFICIAL_COUNTRIES
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 # Dictionary of ISO country code to IBAN length.
@@ -103,9 +105,9 @@ def iban_validator(value, future_date=None):
     country_code = value[:2]
     if country_code in iban_length:
         if iban_length[country_code] != len(value):
-            raise ValidationError(u"Wrong IBAN length for country code %s." % country_code)
+            raise ValidationError(_(u"Wrong IBAN length for country code %s.") % country_code)
     else:
-        raise ValidationError(u"%s is not a valid Country Code for IBAN." % country_code)
+        raise ValidationError(_(u"%s is not a valid Country Code for IBAN.") % country_code)
 
     # 2. Move the four initial characters to the end of the string.
     value = value[4:] + value[:4]
@@ -116,7 +118,7 @@ def iban_validator(value, future_date=None):
     for x in value:
         # Check if we can use ord() before doing the official check. This protects against bad character encoding.
         if len(x) > 1:
-            raise ValidationError(u"%s is not a valid character for IBAN." % x)
+            raise ValidationError(_(u"%s is not a valid character for IBAN.") % x)
 
         # The official check.
         ord_value = ord(x)
@@ -125,11 +127,11 @@ def iban_validator(value, future_date=None):
         elif 65 <= ord_value <= 90:  # A - Z
             value_digits += str(ord_value - 55)
         else:
-            raise ValidationError(u"%s is not a valid character for IBAN." % x)
+            raise ValidationError(_(u"%s is not a valid character for IBAN.") % x)
 
     # 4. Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
     if int(value_digits) % 97 != 1:
-        raise ValidationError(u"Not a valid IBAN.")
+        raise ValidationError(_(u"Not a valid IBAN."))
 
 
 def swift_bic_validator(value):
@@ -138,15 +140,15 @@ def swift_bic_validator(value):
     # Length is 8 or 11.
     swift_bic_length = len(value)
     if swift_bic_length != 8 and swift_bic_length != 11:
-        raise ValidationError(u"A SWIFT-BIC is either 8 or 11 characters long.")
+        raise ValidationError(_(u"A SWIFT-BIC is either 8 or 11 characters long."))
 
     # First 4 letters are A - Z.
     institution_code = value[:4]
     for x in institution_code:
         if x not in string.uppercase:
-            raise ValidationError(u"%s is not a valid SWIFT-BIC Institution Code." % institution_code)
+            raise ValidationError(_(u"%s is not a valid SWIFT-BIC Institution Code.") % institution_code)
 
     # Letters 5 and 6 consist of an ISO 3166-1 alpha-2 country code.
     country_code = value[4:6]
     if country_code not in OFFICIAL_COUNTRIES:
-        raise ValidationError(u"%s is not a valid SWIFT-BIC Country Code." % country_code)
+        raise ValidationError(_(u"%s is not a valid SWIFT-BIC Country Code.") % country_code)
