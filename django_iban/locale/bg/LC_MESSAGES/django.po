@@ -1,0 +1,45 @@
+# Copyright (C)  Ben Konrath
+# This file is distributed under the same license as the django-iban package.
+# Kiril Vladimiroff <kiril@vladimiroff.org>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.2.0\n"
+"Report-Msgid-Bugs-To: Kiril Vladimiroff <kiril@vladimiroff.org>\n"
+"POT-Creation-Date: 2013-04-26 11:27-0500\n"
+"POT-Creation-Date: 2013-04-26 11:37-0500\n"
+"Last-Translator: Kiril Vladimiroff <kiril@vladimiroff.org>\n"
+"Language-Team: Kiril Vladimiroff <kiril@vladimiroff.org>\n"
+"Language: Bulgarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: validators.py:108
+msgid "Wrong IBAN length for country code %s."
+msgstr "Грешен брой символи за %s."
+
+#: validators.py:110
+msgid "%s is not a valid Country Code for IBAN."
+msgstr "%s не е валиден код на държава за IBAN."
+
+#: validators.py:121 validators.py:130
+msgid "%s is not a valid character for IBAN."
+msgstr "%s не е валиден символ за IBAN"
+
+#: validators.py:134
+msgid "Not a valid IBAN."
+msgstr "Невалиден IBAN."
+
+#: validators.py:143
+msgid "A SWIFT-BIC is either 8 or 11 characters long."
+msgstr "SWIFT-BIC е с дължина 8 или 11 символа"
+
+#: validators.py:149
+msgid "%s is not a valid SWIFT-BIC Institution Code."
+msgstr "%s не е валиден SWIFT-BIC Institution Code."
+
+#: validators.py:154
+msgid "%s is not a valid SWIFT-BIC Country Code."
+msgstr "%s не е валиден SWIFT-BIC Country Code."
