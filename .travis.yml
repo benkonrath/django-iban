@@ -9,8 +9,13 @@ env:
   - DJANGO=django==1.4.5
 
 install:
-  - pip install -q $DJANGO --use-mirrors
+  - pip install -q $DJANGO coverage==3.6 --use-mirrors
   - pip install -q -e . --use-mirrors
 
 script:
-  - python setup.py test
+  - coverage run --source=django_iban ./manage.py test
+  - coverage report -m
+
+after_success:
+  - pip install coveralls==0.1.1 --use-mirrors
+  - coveralls
