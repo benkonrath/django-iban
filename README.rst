@@ -3,6 +3,8 @@ Django IBAN
 
 .. image:: https://secure.travis-ci.org/benkonrath/django-iban.png?branch=master
    :target: http://travis-ci.org/benkonrath/django-iban?branch=master
+.. image:: https://coveralls.io/repos/benkonrath/django-iban/badge.png?branch=master
+   :target: https://coveralls.io/r/benkonrath/django-iban?branch=master
 
 **Validated Django model fields for** `International Bank Account Numbers`_ **(IBAN - ISO 13616-1:2007) and**
 `SWIFT-BIC`_ **(ISO 9362:2009).**
