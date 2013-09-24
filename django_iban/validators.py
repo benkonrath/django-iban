@@ -17,6 +17,7 @@ iban_length = {'AL': 28,
                'BH': 22,
                'BA': 20,
                'BG': 22,
+               'BR': 29,
                'CR': 21,
                'HR': 21,
                'CY': 28,
@@ -92,9 +93,6 @@ def iban_validator(value, future_date=None):
         current_date = future_date
     else:
         current_date = timezone.now().date()
-    # Brazil becomes part of the IBAN system on 1 July 2013.
-    if current_date >= datetime.date(2013, 07, 01):
-        iban_length['BR'] = 29
     # Guatemala becomes part of the IBAN system on 1 July 2014.
     if current_date >= datetime.date(2014, 07, 01):
         iban_length['GT'] = 28

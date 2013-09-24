@@ -17,7 +17,7 @@ Django IBAN
 
 * Support for all currently active IBAN countries / numbers.
 * Validates IBAN using the official validation algorithm.
-* Date conditional support for Brazilian IBANs (active 1 July, 2013) and Guatemalan IBANs (active 1 July, 2014)
+* Date conditional support for Guatemalan IBANs (active 1 July, 2014)
 * Basic validation for SWIFT-BIC.
 
 **Usage:**
