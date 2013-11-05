@@ -22,6 +22,8 @@ setup(
     author_email='ben@bagu.org',
 
     packages=find_packages(),
+    package_data={'django_iban': ['locale/*/LC_MESSAGES/*.po',
+                                  'locale/*/LC_MESSAGES/*.mo']},
     include_package_data=True,
     zip_safe=False,
     install_requires=[
