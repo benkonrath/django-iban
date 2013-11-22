@@ -22,7 +22,7 @@ msgstr "Verkeerde IBAN lengte voor landcode %s."
 #: validators.py:108
 #, python-format
 msgid "%s is not a valid Country Code for IBAN."
-msgstr "%s is geen geldige landcode voor deze IBAN."
+msgstr "%s is geen geldige landcode voor dit IBAN."
 
 #: validators.py:119 validators.py:128
 #, python-format
