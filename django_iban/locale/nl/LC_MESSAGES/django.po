@@ -1,0 +1,51 @@
+# Copyright (C) Arjen Dijkstra
+# This file is distributed under the same license as the django-iban package.
+# Tobias Birmili <birmili@mecodia.de>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-05 07:40-0500\n"
+"PO-Revision-Date: 2013-11-21 09:37+0100\n"
+"Last-Translator: Arjen Dijkstra <dijkstra.arjen@gmail.com>\n"
+"Language-Team: Arjen Dijkstra <dijkstra.arjen@gmail.com>\n"
+"Language: Dutch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: validators.py:108
+#, python-format
+msgid "Wrong IBAN length for country code %s."
+msgstr "Ongeldige lengte IBAN code voor land code %s."
+
+#: validators.py:110
+#, python-format
+msgid "%s is not a valid Country Code for IBAN."
+msgstr "%s is geen geldige landcode voor de IBAN code."
+
+#: validators.py:121 validators.py:130
+#, python-format
+msgid "%s is not a valid character for IBAN."
+msgstr "%s is geen geldig karakter voor de IBAN code."
+
+#: validators.py:134
+msgid "Not a valid IBAN."
+msgstr "Geen geldige IBAN code."
+
+#: validators.py:143
+msgid "A SWIFT-BIC is either 8 or 11 characters long."
+msgstr "Een SWIFT-BIC is 8 of 11 karakters lang."
+
+#: validators.py:149
+#, python-format
+msgid "%s is not a valid SWIFT-BIC Institution Code."
+msgstr "%s is geen geldige SWIFT-BIC bankcode."
+
+#: validators.py:154
+#, python-format
+msgid "%s is not a valid SWIFT-BIC Country Code."
+msgstr "%s is geen geldige SWIFT-BIC landcode."
