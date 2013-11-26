@@ -36,6 +36,8 @@ Define a field as ``IBANField`` and/or ``SWIFTBICField`` in your ``models.py``::
 
 **Development:**
 
+Coding style: PEP8 with 120 character lines.
+
 Ideas for new features include:
 
 * SWIFT-BIC validation using referenced IBANField (SEPA requires both IBAN and SWIFT-BIC to be correct).
