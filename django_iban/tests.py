@@ -2,10 +2,11 @@
 import datetime
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from .forms import IBANFormField, SWIFTBICFormField
 from .validators import iban_validator, swift_bic_validator
 
 
-class IbanTests(TestCase):
+class IBANTests(TestCase):
     def test_valid_iban(self):
         wikipedia_examples = [
             'GB82WEST12345698765432',
@@ -58,6 +59,24 @@ class IbanTests(TestCase):
         future_date = datetime.date(2020, 01, 01)
         iban_validator('GT82TRAJ01020000001210029690', future_date)
 
+    def test_iban_form_field(self):
+        valid = {
+            'NL02ABNA0123456789': 'NL02ABNA0123456789',
+            'NL91ABNA0417164300': 'NL91ABNA0417164300',
+            'MU17BOMM0101101030300200000MUR': 'MU17BOMM0101101030300200000MUR',
+            'BE68539007547034': 'BE68539007547034',
+        }
+
+        invalid = {
+            'NL02ABNA012345678999': ['Wrong IBAN length for country code NL.'],
+            'NL91ABNB0417164300': ['Not a valid IBAN.'],
+            'MU17BOMM0101101030300200000MUR12345': [
+                'Wrong IBAN length for country code MU.',
+                'Ensure this value has at most 34 characters (it has 35).']
+        }
+
+        self.assertFieldOutput(IBANFormField, valid=valid, invalid=invalid)
+
 
 class SWIFTBICTests(TestCase):
     def test_valid_swift_bic(self):
@@ -81,3 +100,20 @@ class SWIFTBICTests(TestCase):
 
         swift_bic_invalid_character = u'DÉUTDEFF'
         self.assertRaises(ValidationError, swift_bic_validator, swift_bic_invalid_character)
+
+    def test_swift_bic_form_field(self):
+        valid = {
+            'DEUTDEFF': 'DEUTDEFF',
+            'NEDSZAJJXXX': 'NEDSZAJJXXX',
+            'DABADKKK': 'DABADKKK',
+            'UNCRIT2B912': 'UNCRIT2B912',
+            'DSBACNBXSHA': 'DSBACNBXSHA'
+        }
+
+        invalid = {
+            'NEDSZAJJXX': ['A SWIFT-BIC is either 8 or 11 characters long.'],
+            'CIBCJJH2': ['JJ is not a valid SWIFT-BIC Country Code.'],
+            'D3UTDEFF': ['D3UT is not a valid SWIFT-BIC Institution Code.']
+        }
+
+        self.assertFieldOutput(SWIFTBICFormField, valid=valid, invalid=invalid)
