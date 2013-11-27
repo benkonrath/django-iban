@@ -1,7 +1,6 @@
 import datetime
 import string
-
-from django_countries.countries import COUNTRIES, OFFICIAL_COUNTRIES
+from django_countries.countries import OFFICIAL_COUNTRIES
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -86,7 +85,7 @@ iban_length = {'AL': 28,
 
 
 def iban_validator(value, future_date=None):
-    """ Validation for ISO 13616-1:2007 (IBAN). """
+    """ A validator for International Bank Account Numbers (IBAN - ISO 13616-1:2007). """
 
     # TODO: Remove and add countries to main iban_length after activation date.
     if future_date:

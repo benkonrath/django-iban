@@ -22,7 +22,7 @@ class SWIFTBICField(models.CharField):
         self.validators.append(swift_bic_validator)
 
 
-# If south is installed, ensure that IbanAccountField will be introspected just
+# If south is installed, ensure that IBANField will be introspected just
 # like a normal CharField
 try:
     from south.modelsinspector import add_introspection_rules
