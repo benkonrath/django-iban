@@ -2,6 +2,7 @@
 import datetime
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from .fields import IBANField, SWIFTBICField
 from .forms import IBANFormField, SWIFTBICFormField
 from .validators import iban_validator, swift_bic_validator
 
@@ -59,7 +60,7 @@ class IBANTests(TestCase):
         future_date = datetime.date(2020, 01, 01)
         iban_validator('GT82TRAJ01020000001210029690', future_date)
 
-    def test_iban_form_field(self):
+    def test_iban_fields(self):
         valid = {
             'NL02ABNA0123456789': 'NL02ABNA0123456789',
             'NL91ABNA0417164300': 'NL91ABNA0417164300',
@@ -76,6 +77,20 @@ class IBANTests(TestCase):
         }
 
         self.assertFieldOutput(IBANFormField, valid=valid, invalid=invalid)
+
+        iban_model_field = IBANField()
+
+        # Test valid inputs for model field.
+        for input, output in valid.items():
+            self.assertEqual(iban_model_field.clean(input, None), output)
+
+        # Invalid inputs for model field.
+        for input, errors in invalid.items():
+            with self.assertRaises(ValidationError) as context_manager:
+                iban_model_field.clean(input, None)
+            # The error messages for models are in a different order.
+            errors.reverse()
+            self.assertEqual(context_manager.exception.messages, errors)
 
 
 class SWIFTBICTests(TestCase):
@@ -101,7 +116,7 @@ class SWIFTBICTests(TestCase):
         swift_bic_invalid_character = u'DÉUTDEFF'
         self.assertRaises(ValidationError, swift_bic_validator, swift_bic_invalid_character)
 
-    def test_swift_bic_form_field(self):
+    def test_swift_bic_fields(self):
         valid = {
             'DEUTDEFF': 'DEUTDEFF',
             'NEDSZAJJXXX': 'NEDSZAJJXXX',
@@ -117,3 +132,15 @@ class SWIFTBICTests(TestCase):
         }
 
         self.assertFieldOutput(SWIFTBICFormField, valid=valid, invalid=invalid)
+
+        swift_bic_model_field = SWIFTBICField()
+
+        # Test valid inputs for model field.
+        for input, output in valid.items():
+            self.assertEqual(swift_bic_model_field.clean(input, None), output)
+
+        # Invalid inputs for model field.
+        for input, errors in invalid.items():
+            with self.assertRaises(ValidationError) as context_manager:
+                swift_bic_model_field.clean(input, None)
+            self.assertEqual(errors, context_manager.exception.messages)
