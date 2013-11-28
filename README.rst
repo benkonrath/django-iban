@@ -26,13 +26,25 @@ Validated Django model fields for `International Bank Account Numbers`_ (IBAN - 
 
 **Usage:**
 
-Define a field as ``IBANField`` and/or ``SWIFTBICField`` in your ``models.py``::
+Use the model fields ``IBANField`` and/or ``SWIFTBICField`` in your models::
 
+    from django.db import models
     from django_iban.fields import IBANField, SWIFTBICField
-    
-    class Customer(Model):
+
+
+    class CustomerModel(models.Model):
         iban = IBANField()
         swift_bic = SWIFTBICField()
+
+Use the form fields ``IBANFormField`` and/or ``SWIFTBICFormField`` in your forms::
+
+    from django import forms
+    from django_iban.forms import IBANFormField, SWIFTBICFormField
+
+
+    class CustomerForm(forms.Form):
+        iban = IBANFormField()
+        swift_bic = SWIFTBICFormField()
 
 **Development:**
 
