@@ -8,6 +8,19 @@ from django.utils import timezone
 # Dictionary of ISO country code to IBAN length.
 # Data from:
 # https://en.wikipedia.org/wiki/International_Bank_Account_Number#IBAN_formats_by_country
+#
+# Notes
+# =====
+#
+# French Guyana (GF), French Polynesia (PF), French Southern Territories (TF), Guadeloupe (GP), Martinique (MQ),
+# Mayotte (YT), New Caledonia (NC), Reunion, Saint Pierre et Miquelon (PM), and Wallis and Futuna Islands (WF) have
+# their own ISO country code but are included for the IBAN (ISO 13616:2007) under the code "FR".
+#
+# References:
+# https://en.wikipedia.org/wiki/International_Bank_Account_Number#cite_note-36
+# http://www.ecbs.org/iban/france-bank-account-number.html
+# https://www.nordea.com/V%C3%A5ra+tj%C3%A4nster/Internationella+produkter+och+tj%C3%A4nster/Cash+Management/IBAN+countries/908472.html
+
 iban_length = {'AL': 28,
                'AD': 24,
                'AT': 20,
@@ -70,18 +83,7 @@ iban_length = {'AL': 28,
                'TR': 26,
                'AE': 23,
                'GB': 22,
-               'VG': 24,
-               # https://en.wikipedia.org/wiki/International_Bank_Account_Number#cite_note-24
-               # French Polynesia (PF), French Southern Territories (TF), Mayotte (YT),
-               # New Caledonia (NC), Saint Pierre and Miquelon (PM), and
-               # Wallis and Futuna Islands (WF) have their own ISO country code but may be
-               # identified within the IBAN by either FR or their specific country code.
-               'PF': 27,
-               'TF': 27,
-               'YT': 27,
-               'NC': 27,
-               'PM': 27,
-               'WF': 27}
+               'VG': 24}
 
 
 def iban_validator(value, future_date=None):
@@ -92,9 +94,11 @@ def iban_validator(value, future_date=None):
         current_date = future_date
     else:
         current_date = timezone.now().date()
+
     # Qatar becomes part of the IBAN system on 1 January 2014.
     if current_date >= datetime.date(2014, 01, 01):
         iban_length['QA'] = 29
+
     # Guatemala becomes part of the IBAN system on 1 July 2014.
     if current_date >= datetime.date(2014, 07, 01):
         iban_length['GT'] = 28
