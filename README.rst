@@ -21,6 +21,7 @@ Validated Django model fields for `International Bank Account Numbers`_ (IBAN - 
 
 * Support for all currently active IBAN countries / numbers.
 * Validates IBAN using the official validation algorithm.
+* Date conditional support for Qatar IBANs (active 1 January, 2014)
 * Date conditional support for Guatemalan IBANs (active 1 July, 2014)
 * Basic validation for SWIFT-BIC.
 
