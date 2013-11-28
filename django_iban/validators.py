@@ -92,6 +92,9 @@ def iban_validator(value, future_date=None):
         current_date = future_date
     else:
         current_date = timezone.now().date()
+    # Qatar becomes part of the IBAN system on 1 January 2014.
+    if current_date >= datetime.date(2014, 01, 01):
+        iban_length['QA'] = 29
     # Guatemala becomes part of the IBAN system on 1 July 2014.
     if current_date >= datetime.date(2014, 07, 01):
         iban_length['GT'] = 28
