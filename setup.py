@@ -1,14 +1,29 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+import os
+import sys
+import re
 from distutils.core import setup
 from setuptools import find_packages
 
-import os
 
 def get_long_description():
     path = os.path.join(os.path.dirname(__file__), 'README.rst')
     with open(path) as f:
         return f.read()
+
+
+def get_version():
+    setup_py = open('setup.py').read()
+    return re.search("version=['\"]([0-9]+\.[0-9]+\.[0-9]+)['\"]", setup_py, re.MULTILINE).group(1)
+
+
+if sys.argv[-1] == 'publish':
+    os.system("python setup.py sdist upload")
+    print("You should also add a git tag for this version:")
+    print(" git tag {0}".format(get_version()))
+    print(" git push --tags")
+    sys.exit()
+
 
 setup(
     name='django-iban',
@@ -18,7 +33,7 @@ setup(
     long_description=get_long_description(),
     url='https://github.com/benkonrath/django-iban',
 
-    author=u'Ben Konrath',
+    author='Ben Konrath',
     author_email='ben@bagu.org',
 
     packages=find_packages(),
