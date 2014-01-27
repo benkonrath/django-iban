@@ -1,6 +1,9 @@
 import datetime
 import string
-from django_countries.countries import OFFICIAL_COUNTRIES
+try:
+  from django_countries.data import COUNTRIES
+except ImportError:
+  from django_countries.countries import OFFICIAL_COUNTRIES as COUNTRIES
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
@@ -154,5 +157,5 @@ def swift_bic_validator(value):
 
     # Letters 5 and 6 consist of an ISO 3166-1 alpha-2 country code.
     country_code = value[4:6]
-    if country_code not in OFFICIAL_COUNTRIES:
+    if country_code not in COUNTRIES:
         raise ValidationError(_(u"%s is not a valid SWIFT-BIC Country Code.") % country_code)
