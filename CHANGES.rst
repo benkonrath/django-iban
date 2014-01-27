@@ -1,7 +1,7 @@
 Pending
 -------
 
-* None
+* Add support for django-countries >= 2.0 (Steffen Zieger).
 
 0.2.4
 -----
