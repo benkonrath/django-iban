@@ -57,7 +57,7 @@ class IBANTests(TestCase):
 
     def test_date_conditional_iban(self):
         # Test validation for Guatemala after activation date.
-        future_date = datetime.date(2020, 01, 01)
+        future_date = datetime.date(2020, 1, 1)
         iban_validator('GT82TRAJ01020000001210029690', future_date)
 
     def test_iban_fields(self):
