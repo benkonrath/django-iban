@@ -3,14 +3,20 @@ language: python
 python:
   - "2.6"
   - "2.7"
+  - "3.3"
 
 env:
-  - DJANGO=django==1.6
-  - DJANGO=django==1.5.5
-  - DJANGO=django==1.4.10
+  - DJANGO_VERSION=1.6.2
+  - DJANGO_VERSION=1.5.5
+  - DJANGO_VERSION=1.4.10
+
+matrix:
+  exclude:
+    - python: "3.3"
+      env: DJANGO_VERSION=1.4.10
 
 install:
-  - pip install -q $DJANGO coverage==3.6 --use-mirrors
+  - pip install -q django==$DJANGO_VERSION coverage==3.6 --use-mirrors
   - pip install -q -e . --use-mirrors
 
 script:
