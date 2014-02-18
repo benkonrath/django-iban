@@ -99,11 +99,11 @@ def iban_validator(value, future_date=None):
         current_date = timezone.now().date()
 
     # Qatar becomes part of the IBAN system on 1 January 2014.
-    if current_date >= datetime.date(2014, 01, 01):
+    if current_date >= datetime.date(2014, 1, 1):
         iban_length['QA'] = 29
 
     # Guatemala becomes part of the IBAN system on 1 July 2014.
-    if current_date >= datetime.date(2014, 07, 01):
+    if current_date >= datetime.date(2014, 7, 1):
         iban_length['GT'] = 28
 
     # Official validation algorithm:
@@ -152,7 +152,7 @@ def swift_bic_validator(value):
     # First 4 letters are A - Z.
     institution_code = value[:4]
     for x in institution_code:
-        if x not in string.uppercase:
+        if x not in string.ascii_uppercase:
             raise ValidationError(_(u"%s is not a valid SWIFT-BIC Institution Code.") % institution_code)
 
     # Letters 5 and 6 consist of an ISO 3166-1 alpha-2 country code.
