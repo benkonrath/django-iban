@@ -1,7 +1,7 @@
 Pending
 -------
 
-* None
+* Python 3.3 support (lucvandort).
 
 0.2.5
 -----
