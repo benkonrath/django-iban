@@ -1,6 +1,11 @@
 Pending
 -------
 
+* None
+
+0.2.6
+-----
+
 * Python 3.3 support (lucvandort).
 * Python 3.2 support.
 * Remove date conditional IBANs. Pending IBANs are now always included in validation.
