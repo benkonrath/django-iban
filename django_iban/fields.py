@@ -1,5 +1,5 @@
 from django.db import models
-from .validators import iban_validator, swift_bic_validator
+from .validators import IBANValidator, swift_bic_validator
 
 
 class IBANField(models.CharField):
@@ -12,7 +12,7 @@ class IBANField(models.CharField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('max_length', 34)
         super(IBANField, self).__init__(*args, **kwargs)
-        self.validators.append(iban_validator)
+        self.validators.append(IBANValidator())
 
 
 class SWIFTBICField(models.CharField):

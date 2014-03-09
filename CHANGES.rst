@@ -2,6 +2,9 @@ Pending
 -------
 
 * Python 3.3 support (lucvandort).
+* Python 3.2 support.
+* Remove date conditional IBANs. Pending IBANs are now always included in validation.
+* Add optional support for the Nordea IBAN extensions.
 
 0.2.5
 -----

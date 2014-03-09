@@ -21,9 +21,8 @@ Validated Django model fields for `International Bank Account Numbers`_ (IBAN - 
 
 * Support for all currently active IBAN countries / numbers.
 * Validates IBAN using the official validation algorithm.
-* Date conditional support for Qatar IBANs (active 1 January, 2014)
-* Date conditional support for Guatemalan IBANs (active 1 July, 2014)
 * Basic validation for SWIFT-BIC.
+* Python 3.2 and 3.3 support for Django >= 1.5.
 
 **Usage:**
 
@@ -46,6 +45,16 @@ Use the form fields ``IBANFormField`` and/or ``SWIFTBICFormField`` in your forms
     class CustomerForm(forms.Form):
         iban = IBANFormField()
         swift_bic = SWIFTBICFormField()
+
+If you want to validate the Nordea IBAN extensions, the model and form fields can be setup like this:
+
+    class CustomerModel(models.Model):
+        iban = IBANField(use_nordea_extensions=True)
+
+
+    class CustomerForm(forms.Form):
+        iban = IBANFormField(use_nordea_extensions=True)
+
 
 **Development:**
 

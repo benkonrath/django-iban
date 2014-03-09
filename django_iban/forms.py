@@ -1,8 +1,8 @@
 from django import forms
-from .validators import iban_validator, swift_bic_validator, iban_length
+from .validators import IBANValidator, swift_bic_validator, IBAN_COUNTRY_CODE_LENGTH
 
 
-iban_min_length = min(iban_length.values())
+iban_min_length = min(IBAN_COUNTRY_CODE_LENGTH.values())
 
 
 class IBANFormField(forms.CharField):
@@ -11,7 +11,7 @@ class IBANFormField(forms.CharField):
 
     https://en.wikipedia.org/wiki/International_Bank_Account_Number
     """
-    default_validators = [iban_validator]
+    default_validators = [IBANValidator()]
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('min_length', iban_min_length)

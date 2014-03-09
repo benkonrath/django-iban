@@ -1,14 +1,19 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import datetime
+
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+
 from .fields import IBANField, SWIFTBICField
 from .forms import IBANFormField, SWIFTBICFormField
-from .validators import iban_validator, swift_bic_validator
+from .validators import IBANValidator, swift_bic_validator
 
 
 class IBANTests(TestCase):
     def test_valid_iban(self):
+        """ Test the IBANValidator with the valid examples in Wikipedia. """
         wikipedia_examples = [
             'GB82WEST12345698765432',
             'GR1601101250000000012300695',
@@ -19,48 +24,27 @@ class IBANTests(TestCase):
         ]
 
         for iban in wikipedia_examples:
-            iban_validator(iban)
+            IBANValidator(iban)
 
     def test_invalid_iban(self):
+        """ Test the IBANValidator with various invalid IBANs. """
         iban_short = 'GB82WEST1234569876543'
-        self.assertRaisesMessage(ValidationError, u'Wrong IBAN length for country code GB.', iban_validator, iban_short)
+        self.assertRaisesMessage(ValidationError, 'Wrong IBAN length for country code GB.', IBANValidator(),
+                                 iban_short)
 
         iban_unknown_country = 'CA34CIBC123425345'
-        self.assertRaisesMessage(ValidationError, u'CA is not a valid Country Code for IBAN.', iban_validator,
+        self.assertRaisesMessage(ValidationError, 'CA is not a valid Country Code for IBAN.', IBANValidator(),
                                  iban_unknown_country)
 
-        iban_invalid_character = u'GB29ÉWBK60161331926819'
-        self.assertRaisesMessage(ValidationError, 'is not a valid character for IBAN.', iban_validator,
+        iban_invalid_character = 'GB29ÉWBK60161331926819'
+        self.assertRaisesMessage(ValidationError, 'is not a valid character for IBAN.', IBANValidator(),
                                  iban_invalid_character)
-        self.assertRaises(ValidationError, iban_validator, iban_invalid_character)
 
         iban_invalid_check = 'SA0380000000608019167519'
-        self.assertRaisesMessage(ValidationError, u'Not a valid IBAN.', iban_validator, iban_invalid_check)
-
-    def test_bulgarian_algorithm(self):
-        valid_examples = [
-            'BG81CECB97902406715001',
-            'BG33AAAA12311012345678',
-        ]
-        invalid_examples = [
-            'BG36CECB97904006715001',
-            'BG36CECB97904006715301',
-            'BG81CECB97902406715011',
-            'BG81CECB97902412345678',
-        ]
-
-        for iban in valid_examples:
-            iban_validator(iban)
-
-        for iban in invalid_examples:
-            self.assertRaisesMessage(ValidationError, u'Not a valid IBAN.', iban_validator, iban)
-
-    def test_date_conditional_iban(self):
-        # Test validation for Guatemala after activation date.
-        future_date = datetime.date(2020, 1, 1)
-        iban_validator('GT82TRAJ01020000001210029690', future_date)
+        self.assertRaisesMessage(ValidationError, 'Not a valid IBAN.', IBANValidator(), iban_invalid_check)
 
     def test_iban_fields(self):
+        """ Test the IBAN model and form field. """
         valid = {
             'NL02ABNA0123456789': 'NL02ABNA0123456789',
             'NL91ABNA0417164300': 'NL91ABNA0417164300',
@@ -73,14 +57,16 @@ class IBANTests(TestCase):
             'NL91ABNB0417164300': ['Not a valid IBAN.'],
             'MU17BOMM0101101030300200000MUR12345': [
                 'Wrong IBAN length for country code MU.',
-                'Ensure this value has at most 34 characters (it has 35).']
+                'Ensure this value has at most 34 characters (it has 35).'],
+
+            # This IBAN should only be valid only if the Nordea extensions are turned on.
+            'EG1100006001880800100014553': ['EG is not a valid Country Code for IBAN.']
         }
 
         self.assertFieldOutput(IBANFormField, valid=valid, invalid=invalid)
 
-        iban_model_field = IBANField()
-
         # Test valid inputs for model field.
+        iban_model_field = IBANField()
         for input, output in valid.items():
             self.assertEqual(iban_model_field.clean(input, None), output)
 
@@ -91,6 +77,12 @@ class IBANTests(TestCase):
             # The error messages for models are in a different order.
             errors.reverse()
             self.assertEqual(context_manager.exception.messages, errors)
+
+    def test_nordea_extensions(self):
+        """ Test a valid IBAN in the Nordea extensions. """
+        iban_validator = IBANValidator(use_nordea_extensions=True)
+        # Run the validator to ensure there are no ValidationErrors raised.
+        iban_validator('EG1100006001880800100014553')
 
 
 class SWIFTBICTests(TestCase):
@@ -113,7 +105,7 @@ class SWIFTBICTests(TestCase):
         swift_bic_country = 'CIBCJJH2'
         self.assertRaises(ValidationError, swift_bic_validator, swift_bic_country)
 
-        swift_bic_invalid_character = u'DÉUTDEFF'
+        swift_bic_invalid_character = 'DÉUTDEFF'
         self.assertRaises(ValidationError, swift_bic_validator, swift_bic_invalid_character)
 
     def test_swift_bic_fields(self):

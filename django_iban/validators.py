@@ -1,144 +1,162 @@
-import datetime
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import string
+
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
 try:
   from django_countries.data import COUNTRIES
 except ImportError:
   from django_countries.countries import OFFICIAL_COUNTRIES as COUNTRIES
-from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
+
 
 # Dictionary of ISO country code to IBAN length.
-# Data from:
-# https://en.wikipedia.org/wiki/International_Bank_Account_Number#IBAN_formats_by_country
-#
-# Notes
-# =====
-#
-# French Guyana (GF), French Polynesia (PF), French Southern Territories (TF), Guadeloupe (GP), Martinique (MQ),
-# Mayotte (YT), New Caledonia (NC), Reunion, Saint Pierre et Miquelon (PM), and Wallis and Futuna Islands (WF) have
-# their own ISO country code but are included for the IBAN (ISO 13616:2007) under the code "FR".
 #
 # References:
-# https://en.wikipedia.org/wiki/International_Bank_Account_Number#cite_note-36
+# https://en.wikipedia.org/wiki/International_Bank_Account_Number#IBAN_formats_by_country
 # http://www.ecbs.org/iban/france-bank-account-number.html
 # https://www.nordea.com/V%C3%A5ra+tj%C3%A4nster/Internationella+produkter+och+tj%C3%A4nster/Cash+Management/IBAN+countries/908472.html
 
-iban_length = {'AL': 28,
-               'AD': 24,
-               'AT': 20,
-               'AZ': 28,
-               'BE': 16,
-               'BH': 22,
-               'BA': 20,
-               'BG': 22,
-               'BR': 29,
-               'CR': 21,
-               'HR': 21,
-               'CY': 28,
-               'CZ': 24,
-               'DK': 18,
-               'DO': 28,
-               'EE': 20,
-               'FO': 18,
-               'FI': 18,
-               'FR': 27,
-               'GE': 22,
-               'DE': 22,
-               'GI': 23,
-               'GR': 27,
-               'GL': 18,
-               'HU': 28,
-               'IS': 26,
-               'IE': 22,
-               'IL': 23,
-               'IT': 27,
-               'KZ': 20,
-               'KW': 30,
-               'LV': 21,
-               'LB': 28,
-               'LI': 21,
-               'LT': 20,
-               'LU': 20,
-               'MK': 19,
-               'MT': 31,
-               'MR': 27,
-               'MU': 30,
-               'MC': 27,
-               'MD': 24,
-               'ME': 22,
-               'NL': 18,
-               'NO': 15,
-               'PS': 29,
-               'PL': 28,
-               'PK': 24,
-               'PT': 25,
-               'RO': 24,
-               'SM': 27,
-               'SA': 24,
-               'RS': 22,
-               'SK': 24,
-               'SI': 19,
-               'ES': 24,
-               'SE': 24,
-               'CH': 21,
-               'TN': 24,
-               'TR': 26,
-               'AE': 23,
-               'GB': 22,
-               'VG': 24}
+IBAN_COUNTRY_CODE_LENGTH = {'AL': 28,  # Albania
+                            'AD': 24,  # Andorra
+                            'AE': 23,  # United Arab Emirates
+                            'AT': 20,  # Austria
+                            'AZ': 28,  # Azerbaijan
+                            'BA': 20,  # Bosnia and Herzegovina
+                            'BE': 16,  # Belgium
+                            'BG': 22,  # Bulgaria
+                            'BH': 22,  # Bahrain
+                            'BR': 29,  # Brazil
+                            'CH': 21,  # Switzerland
+                            'CR': 21,  # Costa Rica
+                            'CY': 28,  # Cyprus
+                            'CZ': 24,  # Czech Republic
+                            'DE': 22,  # Germany
+                            'DK': 18,  # Denmark
+                            'DO': 28,  # Dominican Republic
+                            'EE': 20,  # Estonia
+                            'ES': 24,  # Spain
+                            'FI': 18,  # Finland
+                            'FO': 18,  # Faroe Islands
+                            'FR': 27,  # France + Central African Republic, French Guiana, French Polynesia, Guadeloupe,
+                                       #          Martinique, Réunion, Saint-Pierre and Miquelon, New Caledonia,
+                                       #          Wallis and Futuna
+                            'GB': 22,  # United Kingdom + Guernsey, Isle of Man, Jersey
+                            'GE': 22,  # Georgia
+                            'GI': 23,  # Gibraltar
+                            'GL': 18,  # Greenland
+                            'GR': 27,  # Greece
+                            'GT': 28,  # Guatemala
+                            'HR': 21,  # Croatia
+                            'HU': 28,  # Hungary
+                            'IE': 22,  # Ireland
+                            'IL': 23,  # Israel
+                            'IS': 26,  # Iceland
+                            'IT': 27,  # Italy
+                            'JO': 30,  # Jordan
+                            'KZ': 20,  # Kazakhstan
+                            'KW': 30,  # Kuwait
+                            'LB': 28,  # Lebanon
+                            'LI': 21,  # Liechtenstein
+                            'LT': 20,  # Lithuania
+                            'LU': 20,  # Luxembourg
+                            'LV': 21,  # Latvia
+                            'MC': 27,  # Monaco
+                            'MD': 24,  # Moldova
+                            'ME': 22,  # Montenegro
+                            'MK': 19,  # Macedonia
+                            'MT': 31,  # Malta
+                            'MR': 27,  # Mauritania
+                            'MU': 30,  # Mauritius
+                            'NL': 18,  # Netherlands
+                            'NO': 15,  # Norway
+                            'PS': 29,  # Palestine
+                            'PK': 24,  # Pakistan
+                            'PL': 28,  # Poland
+                            'PT': 25,  # Portugal + Sao Tome and Principe
+                            'QA': 29,  # Qatar
+                            'RO': 24,  # Romania
+                            'RS': 22,  # Serbia
+                            'SA': 24,  # Saudi Arabia
+                            'SE': 24,  # Sweden
+                            'SI': 19,  # Slovenia
+                            'SK': 24,  # Slovakia
+                            'SM': 27,  # San Marino
+                            'TN': 24,  # Tunisia
+                            'TR': 26,  # Turkey
+                            'VG': 24}  # British Virgin Islands
 
 
-def iban_validator(value, future_date=None):
+# Nordea has catalogued IBANs for some additional countries but they are not part of the office IBAN network yet.
+#
+# Reference:
+# https://www.nordea.com/V%C3%A5ra+tj%C3%A4nster/Internationella+produkter+och+tj%C3%A4nster/Cash+Management/IBAN+countries/908472.html
+
+NORDEA_COUNTRY_CODE_LENGTH = {'AO': 25,  # Angola
+                              'BJ': 28,  # Benin
+                              'BF': 27,  # Burkina Faso
+                              'BI': 16,  # Burundi
+                              'CI': 28,  # Ivory Coast
+                              'CG': 27,  # Congo
+                              'CM': 27,  # Cameroon
+                              'CV': 25,  # Cape Verde
+                              'DZ': 24,  # Algeria
+                              'EG': 27,  # Egypt
+                              'GA': 27,  # Gabon
+                              'IR': 26,  # Iran
+                              'MG': 27,  # Madagascar
+                              'ML': 28,  # Mali
+                              'MZ': 25,  # Mozambique
+                              'UA': 29,  # Ukraine
+                              'SN': 28}  # Senegal
+
+
+class IBANValidator(object):
     """ A validator for International Bank Account Numbers (IBAN - ISO 13616-1:2007). """
 
-    # TODO: Remove and add countries to main iban_length after activation date.
-    if future_date:
-        current_date = future_date
-    else:
-        current_date = timezone.now().date()
+    def __init__(self, use_nordea_extensions=False):
+        self.use_nordea_extensions = use_nordea_extensions
 
-    # Qatar becomes part of the IBAN system on 1 January 2014.
-    if current_date >= datetime.date(2014, 1, 1):
-        iban_length['QA'] = 29
+    def __call__(self, value):
 
-    # Guatemala becomes part of the IBAN system on 1 July 2014.
-    if current_date >= datetime.date(2014, 7, 1):
-        iban_length['GT'] = 28
+        if self.use_nordea_extensions:
+            IBAN_COUNTRY_CODE_LENGTH.update(NORDEA_COUNTRY_CODE_LENGTH)
 
-    # Official validation algorithm:
-    # https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN
-    # 1. Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid.
-    country_code = value[:2]
-    if country_code in iban_length:
-        if iban_length[country_code] != len(value):
-            raise ValidationError(_(u"Wrong IBAN length for country code %s.") % country_code)
-    else:
-        raise ValidationError(_(u"%s is not a valid Country Code for IBAN.") % country_code)
-
-    # 2. Move the four initial characters to the end of the string.
-    value = value[4:] + value[:4]
-
-    # 3. Replace each letter in the string with two digits, thereby expanding the string, where
-    #    A = 10, B = 11, ..., Z = 35.
-    value_digits = ""
-    for x in value:
-        # Check if we can use ord() before doing the official check. This protects against bad character encoding.
-        if len(x) > 1:
-            raise ValidationError(_(u"%s is not a valid character for IBAN.") % x)
-
-        # The official check.
-        ord_value = ord(x)
-        if 48 <= ord_value <= 57:  # 0 - 9
-            value_digits += x
-        elif 65 <= ord_value <= 90:  # A - Z
-            value_digits += str(ord_value - 55)
+        # Official IBAN validation algorithm:
+        # https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN
+        # 1. Check that the total IBAN length is correct as per the country. If not, the IBAN is invalid.
+        country_code = value[:2]
+        if country_code in IBAN_COUNTRY_CODE_LENGTH:
+            if IBAN_COUNTRY_CODE_LENGTH[country_code] != len(value):
+                raise ValidationError(_('Wrong IBAN length for country code {0}.'.format(country_code)))
         else:
-            raise ValidationError(_(u"%s is not a valid character for IBAN.") % x)
+            raise ValidationError(_('{0} is not a valid Country Code for IBAN.'.format(country_code)))
 
-    # 4. Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
-    if int(value_digits) % 97 != 1:
-        raise ValidationError(_(u"Not a valid IBAN."))
+        # 2. Move the four initial characters to the end of the string.
+        value = value[4:] + value[:4]
+
+        # 3. Replace each letter in the string with two digits, thereby expanding the string, where
+        #    A = 10, B = 11, ..., Z = 35.
+        value_digits = ""
+        for x in value:
+            # Check if we can use ord() before doing the official check. This protects against bad character encoding.
+            if len(x) > 1:
+                raise ValidationError(_('{0} is not a valid character for IBAN.'.format(x)))
+
+            # The official check.
+            ord_value = ord(x)
+            if 48 <= ord_value <= 57:  # 0 - 9
+                value_digits += x
+            elif 65 <= ord_value <= 90:  # A - Z
+                value_digits += str(ord_value - 55)
+            else:
+                raise ValidationError(_('{0} is not a valid character for IBAN.'.format(x)))
+
+        # 4. Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
+        if int(value_digits) % 97 != 1:
+            raise ValidationError(_('Not a valid IBAN.'))
 
 
 def swift_bic_validator(value):
@@ -147,15 +165,15 @@ def swift_bic_validator(value):
     # Length is 8 or 11.
     swift_bic_length = len(value)
     if swift_bic_length != 8 and swift_bic_length != 11:
-        raise ValidationError(_(u"A SWIFT-BIC is either 8 or 11 characters long."))
+        raise ValidationError(_('A SWIFT-BIC is either 8 or 11 characters long.'))
 
     # First 4 letters are A - Z.
     institution_code = value[:4]
     for x in institution_code:
         if x not in string.ascii_uppercase:
-            raise ValidationError(_(u"%s is not a valid SWIFT-BIC Institution Code.") % institution_code)
+            raise ValidationError(_('{0} is not a valid SWIFT-BIC Institution Code.'.format(institution_code)))
 
     # Letters 5 and 6 consist of an ISO 3166-1 alpha-2 country code.
     country_code = value[4:6]
     if country_code not in COUNTRIES:
-        raise ValidationError(_(u"%s is not a valid SWIFT-BIC Country Code.") % country_code)
+        raise ValidationError(_('{0} is not a valid SWIFT-BIC Country Code.'.format(country_code)))
