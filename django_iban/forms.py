@@ -17,6 +17,9 @@ class IBANFormField(forms.CharField):
         kwargs.setdefault('min_length', iban_min_length)
         kwargs.setdefault('max_length', 34)
         super(IBANFormField, self).__init__(*args, **kwargs)
+        
+    def clean(self, value):
+        return value.replace(" ", "")
 
 
 class SWIFTBICFormField(forms.CharField):
@@ -30,3 +33,6 @@ class SWIFTBICFormField(forms.CharField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('max_length', 11)
         super(SWIFTBICFormField, self).__init__(*args, **kwargs)
+        
+    def clean(self, value):
+        return value.replace(" ", "")
