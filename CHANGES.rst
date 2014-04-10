@@ -1,7 +1,7 @@
 Pending
 -------
 
-* None
+* Allow IBANs to have spaces as per the official display representation.
 
 0.2.6
 -----
