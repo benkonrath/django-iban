@@ -14,6 +14,10 @@ class IBANField(models.CharField):
         super(IBANField, self).__init__(*args, **kwargs)
         self.validators.append(IBANValidator())
 
+    def to_python(self, value):
+        value = super(IBANField, self).to_python(value)
+        return value.replace(' ', '')
+
 
 class SWIFTBICField(models.CharField):
     """
