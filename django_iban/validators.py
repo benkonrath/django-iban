@@ -130,9 +130,9 @@ class IBANValidator(object):
         country_code = value[:2]
         if country_code in IBAN_COUNTRY_CODE_LENGTH:
             if IBAN_COUNTRY_CODE_LENGTH[country_code] != len(value):
-                raise ValidationError(_('Wrong IBAN length for country code {0}.'.format(country_code)))
+                raise ValidationError(_('Wrong IBAN length for country code {0}.').format(country_code))
         else:
-            raise ValidationError(_('{0} is not a valid Country Code for IBAN.'.format(country_code)))
+            raise ValidationError(_('{0} is not a valid Country Code for IBAN.').format(country_code))
 
         # 2. Move the four initial characters to the end of the string.
         value = value[4:] + value[:4]
@@ -143,7 +143,7 @@ class IBANValidator(object):
         for x in value:
             # Check if we can use ord() before doing the official check. This protects against bad character encoding.
             if len(x) > 1:
-                raise ValidationError(_('{0} is not a valid character for IBAN.'.format(x)))
+                raise ValidationError(_('{0} is not a valid character for IBAN.').format(x))
 
             # The official check.
             ord_value = ord(x)
@@ -152,7 +152,7 @@ class IBANValidator(object):
             elif 65 <= ord_value <= 90:  # A - Z
                 value_digits += str(ord_value - 55)
             else:
-                raise ValidationError(_('{0} is not a valid character for IBAN.'.format(x)))
+                raise ValidationError(_('{0} is not a valid character for IBAN.').format(x))
 
         # 4. Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
         if int(value_digits) % 97 != 1:
@@ -171,9 +171,9 @@ def swift_bic_validator(value):
     institution_code = value[:4]
     for x in institution_code:
         if x not in string.ascii_uppercase:
-            raise ValidationError(_('{0} is not a valid SWIFT-BIC Institution Code.'.format(institution_code)))
+            raise ValidationError(_('{0} is not a valid SWIFT-BIC Institution Code.').format(institution_code))
 
     # Letters 5 and 6 consist of an ISO 3166-1 alpha-2 country code.
     country_code = value[4:6]
     if country_code not in COUNTRIES:
-        raise ValidationError(_('{0} is not a valid SWIFT-BIC Country Code.'.format(country_code)))
+        raise ValidationError(_('{0} is not a valid SWIFT-BIC Country Code.').format(country_code))
