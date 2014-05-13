@@ -1,6 +1,11 @@
 Pending
 -------
 
+* None
+
+0.2.7
+-----
+
 * Allow IBANs to have spaces as per the official display representation.
 * Bug fix to re-enable translations (Rodrigo Olmo).
 * Add Spanish translations (Rodrigo Olmo).
