@@ -7,9 +7,9 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 try:
-  from django_countries.data import COUNTRIES
+    from django_countries.data import COUNTRIES
 except ImportError:
-  from django_countries.countries import OFFICIAL_COUNTRIES as COUNTRIES
+    from django_countries.countries import OFFICIAL_COUNTRIES as COUNTRIES
 
 
 # Dictionary of ISO country code to IBAN length.
