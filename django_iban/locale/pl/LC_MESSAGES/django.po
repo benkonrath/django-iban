@@ -20,18 +20,18 @@ msgstr ""
 
 #: validators.py:108
 #, python-format
-msgid "Wrong IBAN length for country code %s."
-msgstr "Zła długość IBAN dla kraju o kodzie %s."
+msgid "Wrong IBAN length for country code {0}."
+msgstr "Zła długość IBAN dla kraju o kodzie {0}."
 
 #: validators.py:110
 #, python-format
-msgid "%s is not a valid Country Code for IBAN."
-msgstr "%s jest nieprawidłowym kodem kraju dla IBAN."
+msgid "{0} is not a valid Country Code for IBAN."
+msgstr "{0} jest nieprawidłowym kodem kraju dla IBAN."
 
 #: validators.py:121 validators.py:130
 #, python-format
-msgid "%s is not a valid character for IBAN."
-msgstr "Znak %s jest niedozwolony w IBAN."
+msgid "{0} is not a valid character for IBAN."
+msgstr "Znak {0} jest niedozwolony w IBAN."
 
 #: validators.py:134
 msgid "Not a valid IBAN."
@@ -43,10 +43,10 @@ msgstr "SWIFT-BIC powinien mieć 8 lub 11 znaków."
 
 #: validators.py:149
 #, python-format
-msgid "%s is not a valid SWIFT-BIC Institution Code."
-msgstr "%s nie jest prawidłowym kodem instytucji SWIFT-BIC."
+msgid "{0} is not a valid SWIFT-BIC Institution Code."
+msgstr "{0} nie jest prawidłowym kodem instytucji SWIFT-BIC."
 
 #: validators.py:154
 #, python-format
-msgid "%s is not a valid SWIFT-BIC Country Code."
-msgstr "%s nie jest prawidłowym kodem kraju SWIFT-BIC."
+msgid "{0} is not a valid SWIFT-BIC Country Code."
+msgstr "{0} nie jest prawidłowym kodem kraju SWIFT-BIC."
