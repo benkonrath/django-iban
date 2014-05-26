@@ -1,6 +1,11 @@
 Pending
 -------
 
+* None
+
+0.2.8
+-----
+
 * Fix translations for bg, de, fr, nl and pl (Paweł Nowak).
 
 0.2.7
