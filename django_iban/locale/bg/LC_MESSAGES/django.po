@@ -7,7 +7,6 @@ msgstr ""
 "Project-Id-Version: 0.2.0\n"
 "Report-Msgid-Bugs-To: Kiril Vladimiroff <kiril@vladimiroff.org>\n"
 "POT-Creation-Date: 2013-04-26 11:27-0500\n"
-"POT-Creation-Date: 2013-04-26 11:37-0500\n"
 "Last-Translator: Kiril Vladimiroff <kiril@vladimiroff.org>\n"
 "Language-Team: Kiril Vladimiroff <kiril@vladimiroff.org>\n"
 "Language: Bulgarian\n"
@@ -16,30 +15,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: validators.py:108
-msgid "Wrong IBAN length for country code %s."
+#: validators.py:133
+msgid "Wrong IBAN length for country code {0}."
 msgstr "Грешен брой символи за %s."
 
-#: validators.py:110
-msgid "%s is not a valid Country Code for IBAN."
-msgstr "%s не е валиден код на държава за IBAN."
+#: validators.py:135
+msgid "{0} is not a valid Country Code for IBAN."
+msgstr "{0} не е валиден код на държава за IBAN."
 
-#: validators.py:121 validators.py:130
-msgid "%s is not a valid character for IBAN."
-msgstr "%s не е валиден символ за IBAN"
+#: validators.py:146 validators.py:155
+msgid "{0} is not a valid character for IBAN."
+msgstr "{0} не е валиден символ за IBAN"
 
-#: validators.py:134
+#: validators.py:159
 msgid "Not a valid IBAN."
 msgstr "Невалиден IBAN."
 
-#: validators.py:143
+#: validators.py:168
 msgid "A SWIFT-BIC is either 8 or 11 characters long."
 msgstr "SWIFT-BIC е с дължина 8 или 11 символа"
 
-#: validators.py:149
-msgid "%s is not a valid SWIFT-BIC Institution Code."
-msgstr "%s не е валиден SWIFT-BIC Institution Code."
+#: validators.py:174
+msgid "{0} is not a valid SWIFT-BIC Institution Code."
+msgstr "{0} не е валиден SWIFT-BIC Institution Code."
 
-#: validators.py:154
-msgid "%s is not a valid SWIFT-BIC Country Code."
-msgstr "%s не е валиден SWIFT-BIC Country Code."
+#: validators.py:179
+msgid "{0} is not a valid SWIFT-BIC Country Code."
+msgstr "{0} не е валиден SWIFT-BIC Country Code."

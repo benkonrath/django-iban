@@ -14,35 +14,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: validators.py:106
-#, python-format
-msgid "Wrong IBAN length for country code %s."
-msgstr "Verkeerde IBAN lengte voor landcode %s."
+#: validators.py:133
+msgid "Wrong IBAN length for country code {0}."
+msgstr "Verkeerde IBAN lengte voor landcode {0}."
 
-#: validators.py:108
-#, python-format
-msgid "%s is not a valid Country Code for IBAN."
+#: validators.py:135
+#, fuzzy
+msgid "{0} is not a valid Country Code for IBAN."
 msgstr "%s is geen geldige landcode voor dit IBAN."
 
-#: validators.py:119 validators.py:128
-#, python-format
-msgid "%s is not a valid character for IBAN."
+#: validators.py:146 validators.py:155
+#, fuzzy
+msgid "{0} is not a valid character for IBAN."
 msgstr "%s is geen geldig teken voor IBAN."
 
-#: validators.py:132
+#: validators.py:159
 msgid "Not a valid IBAN."
 msgstr "IBAN is niet geldig."
 
-#: validators.py:141
+#: validators.py:168
 msgid "A SWIFT-BIC is either 8 or 11 characters long."
 msgstr "Een SWIFT-BIC is 8 of 11 tekens lang."
 
-#: validators.py:147
-#, python-format
-msgid "%s is not a valid SWIFT-BIC Institution Code."
+#: validators.py:174
+#, fuzzy
+msgid "{0} is not a valid SWIFT-BIC Institution Code."
 msgstr "%s is geen geldige SWIFT-BIC bankcode."
 
-#: validators.py:152
-#, python-format
-msgid "%s is not a valid SWIFT-BIC Country Code."
+#: validators.py:179
+#, fuzzy
+msgid "{0} is not a valid SWIFT-BIC Country Code."
 msgstr "%s is geen geldige SWIFT-BIC landcode."
