@@ -1,7 +1,12 @@
 Pending
 -------
 
-* None
+* Pull in IBAN related code that has been contributed django-localflavor. Thanks to Erik Romijn for the code review
+  and bug fixes.
+* IBANField uses IBANFormField by default.
+* IBAN display format (with spaces) is used in the IBANFormField.
+* Optionally limit validation to a list specific of countries.
+* Various bug fixes.
 
 0.2.8
 -----

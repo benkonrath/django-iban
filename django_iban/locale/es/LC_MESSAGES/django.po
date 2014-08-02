@@ -17,30 +17,45 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: validators.py:133
-msgid "Wrong IBAN length for country code {0}."
-msgstr "Longitud de IBAN incorrecta para el código de país {0}"
+#: fields.py:34
+msgid "An International Bank Account Number"
+msgstr ""
 
-#: validators.py:135
-msgid "{0} is not a valid Country Code for IBAN."
-msgstr "{0} no es un código de país válido de IBAN"
+#: validators.py:148
+#, python-format
+msgid "%(country_code)s IBANs must contain %(number)s characters."
+msgstr ""
 
-#: validators.py:146 validators.py:155
-msgid "{0} is not a valid character for IBAN."
-msgstr "{0} no es un caracter válido de IBAN"
+#: validators.py:151
+#, fuzzy, python-format
+msgid "%s is not a valid country code for IBAN."
+msgstr "%s no es un código de país válido de IBAN"
 
-#: validators.py:159
+#: validators.py:153
+#, python-format
+msgid "%s IBANs are not allowed in this field."
+msgstr ""
+
+#: validators.py:168
+#, fuzzy, python-format
+msgid "%s is not a valid character for IBAN."
+msgstr "%s no es un caracter válido de IBAN"
+
+#: validators.py:172
 msgid "Not a valid IBAN."
 msgstr "IBAN no válido"
 
-#: validators.py:168
+#: validators.py:181
 msgid "A SWIFT-BIC is either 8 or 11 characters long."
 msgstr "Un código SWIFT-BIC tiene 8 o 11 caracteres de longitud"
 
-#: validators.py:174
+#: validators.py:187
 msgid "{0} is not a valid SWIFT-BIC Institution Code."
 msgstr "{0} no es un código de institución válido para SWIFT-BIC"
 
-#: validators.py:179
+#: validators.py:192
 msgid "{0} is not a valid SWIFT-BIC Country Code."
 msgstr "{0} no es un código de país válido para SWIFT-BIC"
+
+#~ msgid "Wrong IBAN length for country code {0}."
+#~ msgstr "Longitud de IBAN incorrecta para el código de país {0}"

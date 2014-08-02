@@ -19,10 +19,12 @@ Validated Django model fields for `International Bank Account Numbers`_ (IBAN - 
 
 **Features:**
 
-* Support for all currently active and planned to be active IBAN countries / numbers.
-* Optional validation for IBANs included the Nordea IBAN extensions. 
 * Validates IBAN using the official validation algorithm.
+* Support for all currently active and planned to be active IBAN countries / numbers.
+* Optional validation for IBANs included the Nordea IBAN extensions.
+* Optionally limit validation to a list specific of countries.
 * Basic validation for SWIFT-BIC.
+* Supports Django 1.4, 1.5 and 1.6.
 * Python 3.2 and 3.3 support for Django >= 1.5.
 
 **Usage:**
@@ -31,7 +33,6 @@ Use the model fields ``IBANField`` and/or ``SWIFTBICField`` in your models::
 
     from django.db import models
     from django_iban.fields import IBANField, SWIFTBICField
-
 
     class CustomerModel(models.Model):
         iban = IBANField()
@@ -42,19 +43,27 @@ Use the form fields ``IBANFormField`` and/or ``SWIFTBICFormField`` in your forms
     from django import forms
     from django_iban.forms import IBANFormField, SWIFTBICFormField
 
-
     class CustomerForm(forms.Form):
         iban = IBANFormField()
         swift_bic = SWIFTBICFormField()
 
-If you want to validate the Nordea IBAN extensions, the model and form fields can be setup like this::
+To limit IBAN validation to specific countries, set the 'include_countries' argument with a tuple or list of ISO 3166-1
+alpha-2 codes. For example, `include_countries=('NL', 'BE, 'LU')`.
 
-    class CustomerModel(models.Model):
-        iban = IBANField(use_nordea_extensions=True)
+A list of countries that use IBANs as part of SEPA is included for convenience. To use this feature, set
+`include_countries=IBAN_SEPA_COUNTRIES` as an argument to the field.
 
+    Example::
 
-    class CustomerForm(forms.Form):
-        iban = IBANFormField(use_nordea_extensions=True)
+    from django.db import models
+    from django_iban.fields import IBANField,
+    from django_iban.sepa_countries import IBAN_SEPA_COUNTRIES
+
+    class MyModel(models.Model):
+        iban = IBANField(include_countries=IBAN_SEPA_COUNTRIES)
+
+In addition to validating official IBANs, this field can optionally validate unofficial IBANs that have been
+catalogued by Nordea by setting the `use_nordea_extensions` argument to True.
 
 
 **Development:**
