@@ -70,10 +70,10 @@ catalogued by Nordea by setting the `use_nordea_extensions` argument to True.
 
 Coding style: PEP8 with 120 character lines.
 
-Ideas for new features include:
+TODO:
 
-* SWIFT-BIC validation using referenced IBANField (SEPA requires both IBAN and SWIFT-BIC to be correct).
-* Translation of validation error messages using Transifex.
+* Contribute SWIFT-BIC field to django-localflavor and depreciate this app.
+
 
 Pull requests happily accepted.
 
