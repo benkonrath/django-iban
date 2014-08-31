@@ -26,17 +26,17 @@ msgid "%(country_code)s IBANs must contain %(number)s characters."
 msgstr "%(country_code)s IBANs müssen %(number)s Zeichen enthalten."
 
 #: validators.py:151
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid country code for IBAN."
 msgstr "%s ist kein gültiger Ländercode für die IBAN."
 
 #: validators.py:153
 #, python-format
 msgid "%s IBANs are not allowed in this field."
-msgstr ""
+msgstr "%s IBANs werden nicht unterstützt."
 
 #: validators.py:168
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid character for IBAN."
 msgstr "%s ist kein gültiges Zeichen für die IBAN."
 
