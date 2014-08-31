@@ -23,7 +23,7 @@ msgstr ""
 #: validators.py:148
 #, python-format
 msgid "%(country_code)s IBANs must contain %(number)s characters."
-msgstr ""
+msgstr "%(country_code)s IBANs müssen %(number)s Zeichen enthalten."
 
 #: validators.py:151
 #, fuzzy, python-format
