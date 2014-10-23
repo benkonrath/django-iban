@@ -1,6 +1,11 @@
 Pending
 -------
 
+* None
+
+0.3.0
+-----
+
 * Pull in IBAN related code that has been contributed django-localflavor. Thanks to Erik Romijn for the code review
   and bug fixes.
 * IBANField uses IBANFormField by default.
