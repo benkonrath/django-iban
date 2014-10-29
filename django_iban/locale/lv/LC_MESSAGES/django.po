@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-29 15:20+0200\n"
+"PO-Revision-Date: 2014-10-29 16:52+0200\n"
+"Last-Translator: Vitālijs Gaičuks <vitalijs.gaicuks@gmail.com>\n"
+"Language-Team: Trialine <info@trialine.lv>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: fields.py:34
+msgid "An International Bank Account Number"
+msgstr "Starptautiskais banka konta numurs"
+
+#: validators.py:148
+#, python-format
+msgid "%(country_code)s IBANs must contain %(number)s characters."
+msgstr "%(country_code)s IBAN jāsatur %(number)s simboli."
+
+#: validators.py:151
+#, python-format
+msgid "%s is not a valid country code for IBAN."
+msgstr "%s nepareizs IBAN valsts kods."
+
+#: validators.py:153
+#, python-format
+msgid "%s IBANs are not allowed in this field."
+msgstr "%s IBAN ir aizliegts."
+
+#: validators.py:168
+#, python-format
+msgid "%s is not a valid character for IBAN."
+msgstr "%s simbols nav atļauts IBAN laukā."
+
+#: validators.py:172
+msgid "Not a valid IBAN."
+msgstr "Nepareizs IBAN."
+
+#: validators.py:181
+msgid "A SWIFT-BIC is either 8 or 11 characters long."
+msgstr "SWIFT-BIC jābūt 8 vai 11 simbolu garam."
+
+#: validators.py:187
+#, python-brace-format
+msgid "{0} is not a valid SWIFT-BIC Institution Code."
+msgstr "{0} nepareizs SWIFT-BIC bankas kods."
+
+#: validators.py:192
+#, python-brace-format
+msgid "{0} is not a valid SWIFT-BIC Country Code."
+msgstr "{0} nepareizs SWIFT-BIC valsts kods."
