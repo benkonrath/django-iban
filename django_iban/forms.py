@@ -63,3 +63,17 @@ class SWIFTBICFormField(forms.CharField):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('max_length', 11)
         super(SWIFTBICFormField, self).__init__(*args, **kwargs)
+
+    def to_python(self, value):
+        # BIC is always written in upper case
+        # https://www2.swift.com/uhbonline/books/public/en_uk/bic_policy/bic_policy.pdf
+        value = super(SWIFTBICFormField, self).to_python(value)
+        if value is not None:
+            return value.upper()
+        return value
+
+    def prepare_value(self, value):
+        # BIC is always written in upper case
+        if value is None:
+            return value
+        return value.upper()

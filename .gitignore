@@ -5,3 +5,6 @@ local_settings.py
 *~
 django_iban.egg-info
 .tox
+.settings
+.project
+.pydevproject
