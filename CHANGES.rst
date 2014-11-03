@@ -1,7 +1,7 @@
 Pending
 -------
 
-* None
+* Latvian and Russian translations (@vgaicuks).
 
 0.3.0
 -----
