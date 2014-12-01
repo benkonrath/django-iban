@@ -152,13 +152,13 @@ class IBANValidator(object):
         if self.include_countries and country_code not in self.include_countries:
             raise ValidationError(_('%s IBANs are not allowed in this field.') % country_code)
 
-        # 2. Move the four initial characters to the end of the string.
-        value = value[4:] + value[:4]
+        # 2. Move the two initial characters to the end of the string, replacing checksum for '00'
+        sum_value = value[4:] + value[:2] + '00'
 
         # 3. Replace each letter in the string with two digits, thereby expanding the string, where
         #    A = 10, B = 11, ..., Z = 35.
         value_digits = ''
-        for x in value:
+        for x in sum_value:
             ord_value = ord(x)
             if 48 <= ord_value <= 57:  # 0 - 9
                 value_digits += x
@@ -167,8 +167,10 @@ class IBANValidator(object):
             else:
                 raise ValidationError(_('%s is not a valid character for IBAN.') % x)
 
-        # 4. Interpret the string as a decimal integer and compute the remainder of that number on division by 97.
-        if int(value_digits) % 97 != 1:
+        # 4. The remainder of the number above when divided by 97 is then subtracted from 98.
+        checksum = '%02d' % (98 - int(value_digits) % 97)
+
+        if checksum != value[2:4]:
             raise ValidationError(_('Not a valid IBAN.'))
 
 
