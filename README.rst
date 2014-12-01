@@ -70,12 +70,5 @@ catalogued by Nordea by setting the `use_nordea_extensions` argument to True.
 
 Coding style: PEP8 with 120 character lines.
 
-TODO:
-
-* Contribute SWIFT-BIC field to django-localflavor and depreciate this app.
-
-
-Pull requests happily accepted.
-
 .. _International Bank Account Numbers: https://en.wikipedia.org/wiki/International_Bank_Account_Number
 .. _SWIFT-BIC: https://en.wikipedia.org/wiki/ISO_9362
