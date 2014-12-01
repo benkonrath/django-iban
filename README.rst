@@ -53,7 +53,7 @@ alpha-2 codes. For example, `include_countries=('NL', 'BE, 'LU')`.
 A list of countries that use IBANs as part of SEPA is included for convenience. To use this feature, set
 `include_countries=IBAN_SEPA_COUNTRIES` as an argument to the field.
 
-    Example::
+Example::
 
     from django.db import models
     from django_iban.fields import IBANField,
