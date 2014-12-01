@@ -68,7 +68,8 @@ catalogued by Nordea by setting the `use_nordea_extensions` argument to True.
 
 **Development:**
 
-Coding style: PEP8 with 120 character lines.
+Please direct development efforts to the versions of the IBAN and BIC fields that are in `django-localflavor`_.
 
 .. _International Bank Account Numbers: https://en.wikipedia.org/wiki/International_Bank_Account_Number
 .. _SWIFT-BIC: https://en.wikipedia.org/wiki/ISO_9362
+.. _django-localflavor: https://github.com/django/django-localflavor
