@@ -27,7 +27,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='django-iban',
-    version='0.3.0',
+    version='0.3.1',
     license='BSD',
     description='A validated IBAN field for Django models',
     long_description=get_long_description(),

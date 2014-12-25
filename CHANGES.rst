@@ -1,6 +1,11 @@
 Pending
 -------
 
+* None
+
+0.3.1
+-----
+
 * Uppercase BIC (Gunnar Scherf @g10f).
 * Fix German translation (Gunnar Scherf @g10f).
 * Latvian and Russian translations (@vgaicuks).
