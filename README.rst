@@ -13,6 +13,9 @@ django-iban
 Validated Django model fields for `International Bank Account Numbers`_ (IBAN - ISO 13616-1:2007) and
 `SWIFT-BIC`_ (ISO 9362:2009).
 
+.. WARNING::
+   Obsolete package. You should not use this package any longer. The IBAN and BIC fields are now available in version 1.1 and later of the https://pypi.python.org/pypi/django-localflavor package. Bug reports and feature requests should be filed against django-localflavor.
+   
 **Author:** Ben Konrath
 
 **License:** 3-clause BSD
