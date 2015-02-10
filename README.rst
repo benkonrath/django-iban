@@ -1,78 +1,83 @@
 django-iban
 ===========
 
-.. image:: https://secure.travis-ci.org/benkonrath/django-iban.png?branch=master
-   :target: http://travis-ci.org/benkonrath/django-iban?branch=master
-.. image:: https://coveralls.io/repos/benkonrath/django-iban/badge.png?branch=master
-   :target: https://coveralls.io/r/benkonrath/django-iban?branch=master
-.. image:: https://pypip.in/v/django-iban/badge.png
-   :target: https://crate.io/packages/django-iban/
-.. image:: https://pypip.in/d/django-iban/badge.png
-   :target: https://crate.io/packages/django-iban/
-
-Validated Django model fields for `International Bank Account Numbers`_ (IBAN - ISO 13616-1:2007) and
-`SWIFT-BIC`_ (ISO 9362:2009).
-
 .. WARNING::
-   **Obsolete package** You should not use this package any longer. The IBAN and BIC fields are now available in version 1.1 and later of the https://pypi.python.org/pypi/django-localflavor package. Bug reports and feature requests should be filed against https://github.com/django/django-localflavor.
-   
-**Author:** Ben Konrath
+   **Obsolete package** You should not use this package any longer. The IBAN and BIC fields are now
+   available in version 1.1 and later of the https://pypi.python.org/pypi/django-localflavor package.
+   Bug reports and feature requests should be filed against https://github.com/django/django-localflavor.
 
-**License:** 3-clause BSD
+   The IBAN and BIC fields in django-localflavor have bugs fixes that are not included in this package.
+   Please migrate existing code to the IBAN and BIC fields in the `django-localflavor generic package`_.
 
-**Features:**
+**Migrating Model Fields to django-localflavor**
 
-* Validates IBAN using the official validation algorithm.
-* Support for all currently active and planned to be active IBAN countries / numbers.
-* Optional validation for IBANs included the Nordea IBAN extensions.
-* Optionally limit validation to a list specific of countries.
-* Basic validation for SWIFT-BIC.
-* Supports Django 1.4, 1.5 and 1.6.
-* Python 3.2 and 3.3 support for Django >= 1.5.
+Add `localflavor` to your `INSTALLED_APPS` and then change the model fields ``IBANField``
+and``SWIFTBICField`` to the versions from django-localflavor.
 
-**Usage:**
+For example, the django-iban model fields should be changed from this::
 
-Use the model fields ``IBANField`` and/or ``SWIFTBICField`` in your models::
-
-    from django.db import models
     from django_iban.fields import IBANField, SWIFTBICField
 
     class CustomerModel(models.Model):
         iban = IBANField()
-        swift_bic = SWIFTBICField()
+        bic = SWIFTBICField()
 
-Use the form fields ``IBANFormField`` and/or ``SWIFTBICFormField`` in your forms::
+to the django-localflavor model field versions::
 
-    from django import forms
+    from localflavor.generic.models import IBANField, BICField
+
+    class CustomerModel(models.Model):
+        iban = IBANField()
+        bic = BICField()
+
+For Django < 1.7, you will need to use South to migrate your database. Use `schemamigration`
+to create a migration and then run `migrate` alter your database. For example::
+
+    % ./manage.py schemamigration myapp --auto convert_django_iban_to_django_localflavor
+     ~ Changed field iban on myapp.CustomerModel
+     ~ Changed field bic on myapp.CustomerModel
+    Created 0002_convert_django_iban_to_django_localflavor.py. You can now apply this migration with: ./manage.py migrate myapp
+
+    % ./manage.py migrate myapp
+    Running migrations for myapp:
+     - Migrating forwards to 0002_convert_django_iban_to_django_localflavor.
+     > myapp:0002_convert_django_iban_to_django_localflavor
+     - Loading initial data for myapp.
+    Installed 0 object(s) from 0 fixture(s)
+
+For Django >= 1.7, run `makemigrations` to create a migration and then run `migrate` alter
+your database. For example::
+
+    % ./manage.py makemigrations myapp
+    Migrations for 'myapp':
+      0002_auto_20150210_1004.py:
+        - Alter field bic on customermodel
+        - Alter field iban on customermodel
+
+    % ./manage.py migrate myapp
+    Operations to perform:
+      Apply all migrations: myapp
+    Running migrations:
+      Applying myapp.0002_auto_20150210_1004... OK
+
+**Migrating Form Fields to django-localflavor**
+
+Change the form fields ``IBANFormField`` and ``SWIFTBICFormField`` to the versions from django-localflavor.
+
+For example, the django-iban form fields should be changed from this::
+
     from django_iban.forms import IBANFormField, SWIFTBICFormField
 
     class CustomerForm(forms.Form):
         iban = IBANFormField()
         swift_bic = SWIFTBICFormField()
 
-To limit IBAN validation to specific countries, set the 'include_countries' argument with a tuple or list of ISO 3166-1
-alpha-2 codes. For example, `include_countries=('NL', 'BE, 'LU')`.
+to the django-localflavor form field versions::
 
-A list of countries that use IBANs as part of SEPA is included for convenience. To use this feature, set
-`include_countries=IBAN_SEPA_COUNTRIES` as an argument to the field.
+    from localflavor.generic.forms import IBANFormField, BICFormField
 
-Example::
+    class CustomerForm(forms.Form):
+        iban = IBANFormField()
+        bic = BICFormField()
 
-    from django.db import models
-    from django_iban.fields import IBANField,
-    from django_iban.sepa_countries import IBAN_SEPA_COUNTRIES
-
-    class MyModel(models.Model):
-        iban = IBANField(include_countries=IBAN_SEPA_COUNTRIES)
-
-In addition to validating official IBANs, this field can optionally validate unofficial IBANs that have been
-catalogued by Nordea by setting the `use_nordea_extensions` argument to True.
-
-
-**Development:**
-
-Please direct development efforts to the versions of the IBAN and BIC fields that are in `django-localflavor`_.
-
-.. _International Bank Account Numbers: https://en.wikipedia.org/wiki/International_Bank_Account_Number
-.. _SWIFT-BIC: https://en.wikipedia.org/wiki/ISO_9362
-.. _django-localflavor: https://github.com/django/django-localflavor
+.. _django-localflavor generic package: https://django-localflavor.readthedocs.org/en/latest/generic/
