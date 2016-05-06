@@ -31,7 +31,7 @@ to the django-localflavor model field versions::
         bic = BICField()
 
 For Django < 1.7, you will need to use South to migrate your database. Use `schemamigration`
-to create a migration and then run `migrate` alter your database. For example::
+to create a migration and then run `migrate` to alter your database. For example::
 
     % ./manage.py schemamigration myapp --auto convert_django_iban_to_django_localflavor
      ~ Changed field iban on myapp.CustomerModel
@@ -45,7 +45,7 @@ to create a migration and then run `migrate` alter your database. For example::
      - Loading initial data for myapp.
     Installed 0 object(s) from 0 fixture(s)
 
-For Django >= 1.7, run `makemigrations` to create a migration and then run `migrate` alter
+For Django >= 1.7, run `makemigrations` to create a migration and then run `migrate` to alter
 your database. For example::
 
     % ./manage.py makemigrations myapp
