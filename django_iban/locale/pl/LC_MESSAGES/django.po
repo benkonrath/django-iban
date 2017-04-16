@@ -21,12 +21,12 @@ msgstr ""
 
 #: fields.py:34
 msgid "An International Bank Account Number"
-msgstr ""
+msgstr "Międzynarodowy numer konta bankowego"
 
 #: validators.py:148
 #, python-format
 msgid "%(country_code)s IBANs must contain %(number)s characters."
-msgstr ""
+msgstr "%(country_code) IBAN musi zawierać %(number) znaków"
 
 #: validators.py:151
 #, fuzzy, python-format
@@ -36,7 +36,7 @@ msgstr "%s jest nieprawidłowym kodem kraju dla IBAN."
 #: validators.py:153
 #, python-format
 msgid "%s IBANs are not allowed in this field."
-msgstr ""
+msgstr "%s IBAN jest niedopuszczalny w tym polu."
 
 #: validators.py:168
 #, fuzzy, python-format
